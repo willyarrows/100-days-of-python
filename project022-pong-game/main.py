@@ -2,6 +2,7 @@ import time
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from scoreboard import ScoreBoard
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 500
@@ -14,6 +15,7 @@ screen.tracer(0)
 paddle_right = Paddle(init_pos=(SCREEN_WIDTH/2 - 50, 0), screen=screen)
 paddle_left = Paddle(init_pos=(-1 * SCREEN_WIDTH/2 + 40, 0), screen=screen)
 ball = Ball(screen=screen)
+scoreboard = ScoreBoard(screen=screen)
 
 screen.listen()
 screen.onkey(key="Up", fun=paddle_right.up)
@@ -28,7 +30,7 @@ y_floor = -1 * SCREEN_HEIGHT / 2 + 30
 
 while game_is_on:
     screen.update()
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     ball.move()
 
     if ball.ycor() >= y_ceiling or ball.ycor() <= y_floor:
@@ -40,8 +42,10 @@ while game_is_on:
 
     if ball.xcor() > SCREEN_WIDTH / 2:
         ball.reset_position()
+        scoreboard.increase_score('left')
 
     if ball.xcor() < -1 * SCREEN_WIDTH / 2:
         ball.reset_position()
+        scoreboard.increase_score('right')
 
 screen.exitonclick()

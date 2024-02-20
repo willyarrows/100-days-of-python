@@ -2,15 +2,15 @@ from turtle import Turtle
 import time
 
 BALL_WIDTH = 0.5
-MOVE_DISTANCE = 12
-
 
 class Ball(Turtle):
     def __init__(self, screen):
         super().__init__()
         self.screen = screen
-        self.x_direction = MOVE_DISTANCE
-        self.y_direction = MOVE_DISTANCE
+        self.move_speed = 0.1
+        self.move_distance = 12
+        self.x_direction = self.move_distance
+        self.y_direction = self.move_distance
         self.create_ball()
 
     def create_ball(self):
@@ -31,9 +31,12 @@ class Ball(Turtle):
             self.y_direction *= -1
         elif direction == 'horizontal':
             self.x_direction *= -1
+            self.move_speed *= 0.9
+
 
     def reset_position(self):
         self.home()
         self.bounce('horizontal')
         self.screen.update()
+        self.move_speed = 0.1
         time.sleep(0.75)
