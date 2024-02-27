@@ -32,7 +32,6 @@ while is_game_on:
     else:
         state = df_states[df_states.state == answer_state]
         if not state.empty:
-            # state_coordinate = (state.x.iloc[0], state.y.iloc[0])
             state_coordinate = (int(state.x), int(state.y))
             checker.goto(state_coordinate)
             checker.write(arg=answer_state, align='center', font=CHECKER_FONT)
