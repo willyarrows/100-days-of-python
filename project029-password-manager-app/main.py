@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.messagebox
 import csv
 import random
+import pyperclip
 
 DEFAULT_USERNAME = "willy.sebastian@gmail.com"
 LETTERS = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
@@ -13,36 +14,16 @@ SYMBOLS = ('!', '#', '$', '%', '&', '(', ')', '*', '+')
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
-    print("Welcome to the PyPassword Generator!")
-    nr_letters = random.randint(8, 10)
-    nr_symbols = random.randint(4, 6)
-    nr_numbers = random.randint(4, 6)
+    password_letter = [random.choice(LETTERS) for _ in range(random.randint(8, 10))]
+    password_symbols = [random.choice(SYMBOLS) for _ in range(random.randint(4, 6))]
+    password_numbers = [random.choice(NUMBERS) for _ in range(random.randint(4, 6))]
 
-    index = [0, 1, 2]  # 0 = letter, 1 = symbol, 2 = number
+    password_combination = password_letter + password_symbols + password_numbers
+    random.shuffle(password_combination)
 
-    password_length = nr_letters + nr_symbols + nr_numbers
-    password = []
-    while password_length > 0:
-        index_random = random.choice(index)
-        if index_random == 0:  # letter is chosen
-            password.append(random.choice(LETTERS))
-            nr_letters -= 1
-            if nr_letters == 0:
-                index.remove(0)
-        elif index_random == 1:  # symbol is chosen
-            password.append(random.choice(SYMBOLS))
-            nr_symbols -= 1
-            if nr_symbols == 0:
-                index.remove(1)
-        elif index_random == 2:  # number is chosen
-            password.append(random.choice(NUMBERS))
-            nr_numbers -= 1
-            if nr_numbers == 0:
-                index.remove(2)
-        password_length -= 1
-
-    generated_password = ''.join(password)
+    generated_password = "".join(password_combination)
     entry_password.insert(0, generated_password)
+    pyperclip.copy(generated_password)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
