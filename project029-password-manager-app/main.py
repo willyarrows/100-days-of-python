@@ -32,12 +32,8 @@ def save_password():
     username = entry_username.get()
     password = entry_password.get()
 
-    if website.strip() == "":
-        tk.messagebox.showerror(title="Error", message="Website must not be empty")
-    elif username.strip() == "":
-        tk.messagebox.showerror(title="Error", message="Email / Username must not be empty")
-    elif password.strip() == "":
-        tk.messagebox.showerror(title="Error", message="Password must not be empty")
+    if website.strip() == "" or username.strip() == "" or password.strip() == "":
+        tk.messagebox.showerror(title="Error", message="All fields must not be empty")
     else:
         confirmation_message = (f"These are the details entered, "
                                 f"\nEmail : {username} "
