@@ -58,4 +58,5 @@ while True:
             email_message = (f"Subject:ISS Overhead Notification Alert !!! \n\n"
                              f"Look up !! ISS is above you in the sky!!")
             connection.sendmail(from_addr=EMAIL, to_addrs=EMAIL, msg=email_message)
+            print(dt.datetime.now())
             print(email_message)
